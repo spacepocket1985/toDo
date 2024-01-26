@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { TodoList, TaskType, FilterType } from './TodoList';
 import './App.css';
+import { v1 } from 'uuid';
 
 function App() {
   const [tasks, setTasks] = useState<TaskType[]>([
-    { id: 1, title: 'CSS', isDone: true },
-    { id: 2, title: 'JS', isDone: true },
-    { id: 3, title: 'ReactJS', isDone: false },
-    { id: 4, title: 'Redux', isDone: false },
+    { id: v1(), title: 'CSS', isDone: true },
+    { id: v1(), title: 'JS', isDone: true },
+    { id: v1(), title: 'Rest API', isDone: false },
+    { id: v1(), title: 'GraphQL', isDone: false },
   ]);
 
   const [filter, setFilter] = useState<FilterType>(FilterType.ALL);
@@ -26,8 +27,7 @@ function App() {
       break;
   }
 
-
-  function removeTask(id: number) {
+  function removeTask(id: string) {
     setTasks(tasks.filter((task) => task.id != id));
   }
 
@@ -35,11 +35,23 @@ function App() {
     setFilter(filter);
   }
 
+  function addTask(taskTitle: string) {
+    if (taskTitle.length > 0) {
+      const newTask: TaskType = {
+        id: v1(),
+        title: taskTitle,
+        isDone: false,
+      };
+      setTasks([newTask, ...tasks]);
+    }
+  }
+
   return (
     <div className="App">
       <TodoList
         title="What to learn"
         tasks={tasksForTodoList}
+        addTask={addTask}
         removeTask={removeTask}
         changeFilter={changeFilter}
       />
