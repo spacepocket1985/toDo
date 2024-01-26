@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
 type PropsType = {
+  idList: string;
   title: string;
   tasks: Array<TaskType>;
-  removeTask: (id: string) => void;
-  changeTaskStatus: (id: string) => void;
-  addTask: (task: string) => void;
-  changeFilter: (filter: FilterType) => void;
+  removeTask: (id: string,todoListId: string) => void;
+  changeTaskStatus: (id: string,todoListId: string) => void;
+  addTask: (task: string,todoListId: string) => void;
+  changeFilter: (filter: FilterType, todoListId: string) => void;
   filter: FilterType;
 };
 
@@ -40,7 +41,7 @@ export function TodoList(props: PropsType) {
   };
 
   const onChangeHandler = (id: string) => {
-    changeTaskStatus(id);
+    changeTaskStatus(id, idList);
   };
 
   const addNewTask = (): void => {
@@ -48,16 +49,16 @@ export function TodoList(props: PropsType) {
       setError('Title is required');
       return;
     }
-    addTask(newTaskTitle);
+    addTask(newTaskTitle,idList);
     setError(null);
     setNewTaskTitle('');
   };
 
-  const onAllClickHandler = () => changeFilter(FilterType.ALL);
-  const onActiveClickHandler = () => changeFilter(FilterType.ACTIVE);
-  const onCompletedClickHandler = () => changeFilter(FilterType.COMPLETED);
+  const onAllClickHandler = () => changeFilter(FilterType.ALL, idList);
+  const onActiveClickHandler = () => changeFilter(FilterType.ACTIVE, idList);
+  const onCompletedClickHandler = () => changeFilter(FilterType.COMPLETED, idList);
 
-  const { title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter } = props;
+  const { title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter, idList } = props;
 
   return (
     <div>
@@ -88,7 +89,7 @@ export function TodoList(props: PropsType) {
               <span>{title}</span>
               <button
                 onClick={() => {
-                  removeTask(id);
+                  removeTask(id, idList);
                 }}
               >
                 x
