@@ -36,14 +36,23 @@ function App() {
   }
 
   function addTask(taskTitle: string) {
-    if (taskTitle.length > 0) {
-      const newTask: TaskType = {
-        id: v1(),
-        title: taskTitle,
-        isDone: false,
-      };
-      setTasks([newTask, ...tasks]);
-    }
+    const newTask: TaskType = {
+      id: v1(),
+      title: taskTitle,
+      isDone: false,
+    };
+    setTasks([newTask, ...tasks]);
+  }
+
+  function changeTaskStatus(id: string) {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, isDone: !task.isDone };
+        }
+        return task;
+      })
+    );
   }
 
   return (
@@ -54,6 +63,8 @@ function App() {
         addTask={addTask}
         removeTask={removeTask}
         changeFilter={changeFilter}
+        changeTaskStatus={changeTaskStatus}
+        filter={filter}
       />
     </div>
   );
