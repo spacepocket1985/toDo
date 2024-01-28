@@ -92,6 +92,15 @@ function App() {
     }
   }
 
+  function changeTodoListTitle(todoListId: string, title: string) {
+    const todoList = todoLists.find((list) => (list.id === todoListId));
+    if (todoList) {
+      todoList.title = title;
+    }
+
+    setTodoLIsts([...todoLists]);
+  }
+
   function addTodoList(title: string) {
     const todoList: TodoListType = {
       id: v1(),
@@ -132,6 +141,7 @@ function App() {
             removeTodoList={removeTodoList}
             changeTaskStatus={changeTaskStatus}
             changeTaskTitle={changeTaskTitle}
+            changeTodoListTitle={changeTodoListTitle}
             filter={todoList.filter}
           />
         );
