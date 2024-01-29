@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 
-type TodoListType = {
+export type TodoListType = {
   id: string;
   title: string;
   filter: FilterType;

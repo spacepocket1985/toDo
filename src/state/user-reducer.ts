@@ -23,3 +23,4 @@ export const userReducer = (state: StateType, action: ActionType): StateType => 
       throw new Error('I dont undertang action type');
   }
 };
+ 

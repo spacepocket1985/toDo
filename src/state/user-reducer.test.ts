@@ -1,4 +1,4 @@
-import { userReducer, StateType, ActionType } from './user-reducer';
+import { userReducer, StateType} from './user-reducer';
 
 test('user reducer should increment only age', () => {
   const startState: StateType = {
