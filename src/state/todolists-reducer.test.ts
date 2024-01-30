@@ -3,10 +3,10 @@ import { v1 } from 'uuid';
 import { TodoListType } from '../App';
 import { FilterType } from '../types/enums';
 import {
-  RemoveTodoListActionType,
-  AddTodoListActionType,
-  ChangeTodoListActionType,
-  ChangeTodoListFilterActionType,
+  RemoveTodoListAC,
+  AddTodoListAC,
+  ChangeTodoListTitletAC,
+  ChangeTodoListFiltertAC,
 } from './todolists-reducer';
 
 test('correct todolist should be removed', () => {
@@ -22,10 +22,7 @@ test('correct todolist should be removed', () => {
     },
   ];
 
-  const action: RemoveTodoListActionType = {
-    type: 'REMOVE-TODOLIST',
-    id: todoListId1,
-  };
+  const action = RemoveTodoListAC(todoListId1);
 
   const endState = todoListsReducer(startState, action);
 
@@ -49,10 +46,7 @@ test('correct todolist should be added', () => {
     },
   ];
 
-  const action: AddTodoListActionType = {
-    type: 'ADD-TODOLIST',
-    title: newTodoListTitle,
-  };
+  const action = AddTodoListAC(newTodoListTitle);
 
   const endState = todoListsReducer(startState, action);
 
@@ -77,11 +71,7 @@ test('correct todolist should change its name', () => {
     },
   ];
 
-  const action: ChangeTodoListActionType = {
-    type: 'CHANGE-TODOLIST-TITLE',
-    id: todoListId2,
-    title: newTodoListTitle,
-  };
+  const action = ChangeTodoListTitletAC(todoListId2, newTodoListTitle);
 
   const endState = todoListsReducer(startState, action);
 
@@ -105,11 +95,7 @@ test('correct filter of todolist should be changed', () => {
     },
   ];
 
-  const action: ChangeTodoListFilterActionType = {
-    type: 'CHANGE-TODOLIST-FILTER',
-    id: todoListId2,
-    filter: newFilter,
-  };
+  const action = ChangeTodoListFiltertAC(todoListId2, newFilter);
 
   const endState = todoListsReducer(startState, action);
 

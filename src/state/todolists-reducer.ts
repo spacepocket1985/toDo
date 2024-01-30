@@ -12,7 +12,7 @@ export type AddTodoListActionType = {
   title: string;
 };
 
-export type ChangeTodoListActionType = {
+export type ChangeTodoListTitleActionType = {
   type: 'CHANGE-TODOLIST-TITLE';
   title: string;
   id: string;
@@ -24,10 +24,32 @@ export type ChangeTodoListFilterActionType = {
   filter: FilterType;
 };
 
+export const RemoveTodoListAC = (todoListId: string): RemoveTodoListActionType => {
+  return { type: 'REMOVE-TODOLIST', id: todoListId };
+};
+
+export const AddTodoListAC = (todoListTitle: string): AddTodoListActionType => {
+  return { type: 'ADD-TODOLIST', title: todoListTitle };
+};
+
+export const ChangeTodoListTitletAC = (
+  todoListId: string,
+  todoListTitle: string
+): ChangeTodoListTitleActionType => {
+  return { type: 'CHANGE-TODOLIST-TITLE', id: todoListId, title: todoListTitle };
+};
+
+export const ChangeTodoListFiltertAC = (
+  todoListId: string,
+  todoListFilter: FilterType
+): ChangeTodoListFilterActionType => {
+  return { type: 'CHANGE-TODOLIST-FILTER', id: todoListId, filter: todoListFilter };
+};
+
 export type ActionsType =
   | RemoveTodoListActionType
   | AddTodoListActionType
-  | ChangeTodoListActionType
+  | ChangeTodoListTitleActionType
   | ChangeTodoListFilterActionType;
 
 export const todoListsReducer = (
