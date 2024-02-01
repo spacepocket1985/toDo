@@ -23,7 +23,13 @@ import {
   removeTaskAC,
   tasksReducer,
 } from './state/tasks-reducer';
-import { removeTodoListAC, todoListsReducer } from './state/todolists-reducer';
+import {
+  addTodoListAC,
+  changeTodoListFiltertAC,
+  changeTodoListTitletAC,
+  removeTodoListAC,
+  todoListsReducer,
+} from './state/todolists-reducer';
 
 export type TodoListType = {
   id: string;
@@ -39,7 +45,7 @@ function AppWithReducers() {
   const todoListId1 = v1();
   const todoListId2 = v1();
 
-  const [todoLists, dispatchToTodoListReducer] = useReducer(todoListsReducer,[
+  const [todoLists, dispatchToTodoListReducer] = useReducer(todoListsReducer, [
     { id: todoListId1, title: 'What to learn?', filter: FilterType.ALL },
     { id: todoListId2, title: 'What to buy?', filter: FilterType.ALL },
   ]);
@@ -63,11 +69,16 @@ function AppWithReducers() {
   }
 
   function changeFilter(filter: FilterType, todoListId: string) {
-    const todoList = todoLists.find((list) => list.id === todoListId);
-    if (todoList) {
-      todoList.filter = filter;
-      setTodoLIsts([...todoLists]);
-    }
+    dispatchToTodoListReducer(changeTodoListFiltertAC(todoListId, filter));
+  }
+
+  function changeTodoListTitle(todoListId: string, title: string) {
+    dispatchToTodoListReducer(changeTodoListTitletAC(todoListId, title));
+  }
+
+  function addTodoList(title: string) {
+    dispatchToTodoListReducer(addTodoListAC(title))
+    // setTasks({ ...tasks, [todoList.id]: [] });
   }
 
   function removeTask(id: string, todoListId: string) {
@@ -84,26 +95,6 @@ function AppWithReducers() {
 
   function changeTaskTitle(id: string, todoListId: string, title: string) {
     dispatchToTasksReducer(changeTaskTitleAC(todoListId, id, title));
-  }
-
-  function changeTodoListTitle(todoListId: string, title: string) {
-    const todoList = todoLists.find((list) => list.id === todoListId);
-    if (todoList) {
-      todoList.title = title;
-    }
-
-    setTodoLIsts([...todoLists]);
-  }
-
-  function addTodoList(title: string) {
-    const todoList: TodoListType = {
-      id: v1(),
-      title: title,
-      filter: FilterType.ALL,
-    };
-
-    setTodoLIsts([todoList, ...todoLists]);
-    // setTasks({ ...tasks, [todoList.id]: [] });
   }
 
   return (
