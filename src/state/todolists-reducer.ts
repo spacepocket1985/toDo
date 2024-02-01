@@ -1,6 +1,7 @@
 import { TodoListType } from '../App';
 import { v1 } from 'uuid';
 import { FilterType } from '../types/enums';
+import { todoListId1, todoListId2 } from './tasks-reducer';
 
 export type RemoveTodoListActionType = {
   type: 'REMOVE-TODOLIST';
@@ -53,19 +54,25 @@ export type ActionsType =
   | ChangeTodoListTitleActionType
   | ChangeTodoListFilterActionType;
 
+const initialState: Array<TodoListType> = [
+  { id: todoListId1, title: 'What to learn?', filter: FilterType.ALL },
+  { id: todoListId2, title: 'What to buy?', filter: FilterType.ALL },
+];
 export const todoListsReducer = (
-  state: Array<TodoListType>,
+  state: Array<TodoListType> = initialState,
   action: ActionsType
 ): Array<TodoListType> => {
   switch (action.type) {
     case 'REMOVE-TODOLIST':
       return state.filter((todoList) => todoList.id !== action.id);
     case 'ADD-TODOLIST':
-      return [...state, { id: v1(), title: action.title, filter: FilterType.ALL }];
-    case 'CHANGE-TODOLIST-TITLE': 
+      return [{ id: action.listId, title: action.title, filter: FilterType.ALL }, ...state];
+    case 'CHANGE-TODOLIST-TITLE':
       return state.map((list) => (list.id === action.id ? { ...list, title: action.title } : list));
-    case 'CHANGE-TODOLIST-FILTER': 
-      return state.map((list) => (list.id === action.id ? { ...list, title: action.filter } : list));
+    case 'CHANGE-TODOLIST-FILTER':
+      return state.map((list) =>
+        list.id === action.id ? { ...list, filter: action.filter } : list
+      );
     default:
       return state;
   }

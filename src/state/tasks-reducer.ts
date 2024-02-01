@@ -12,7 +12,7 @@ export type ActionRemoveTaskType = {
 export type ActionAddTaskType = {
   type: 'ADD-TASK';
   listId: string;
-  taskTitle: string; 
+  taskTitle: string;
 };
 
 export type ActionChangeTaskStatusType = {
@@ -28,13 +28,13 @@ export type ActionChangeTaskTitleType = {
   listId: string;
 };
 
-export type ActionsType =   
+export type ActionsType =
   | ActionRemoveTaskType
   | ActionAddTaskType
   | ActionChangeTaskStatusType
   | ActionChangeTaskTitleType
   | AddTodoListActionType
-  | RemoveTodoListActionType
+  | RemoveTodoListActionType;
 
 export const removeTaskAC = (listId: string, taskId: string): ActionRemoveTaskType => {
   return { type: 'REMOVE-TASK', listId, taskId };
@@ -65,7 +65,26 @@ export const changeTaskTitleAC = (
   };
 };
 
-export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
+export const todoListId1 = v1();
+export const todoListId2 = v1();
+
+const initialState: TasksStateType = {
+  [todoListId1]: [
+    { id: v1(), title: 'CSS', isDone: true },
+    { id: v1(), title: 'JS', isDone: true },
+    { id: v1(), title: 'Rest API', isDone: false },
+    { id: v1(), title: 'GraphQL', isDone: false },
+  ],
+  [todoListId2]: [
+    { id: v1(), title: 'Book', isDone: true },
+    { id: v1(), title: 'Milk', isDone: false },
+  ],
+};
+
+export const tasksReducer = (
+  state: TasksStateType = initialState,
+  action: ActionsType
+): TasksStateType => {
   switch (action.type) {
     case 'REMOVE-TASK':
       return {
@@ -91,17 +110,15 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
           task.id === action.taskId ? { ...task, title: action.tastitle } : task
         ),
       };
-    case 'ADD-TODOLIST' : {
-      const newList:TasksStateType = {[action.title]:[]} 
-      return {...newList,...state}  
+    case 'ADD-TODOLIST': {
+      return { ...state, [action.listId]: [] };
     }
 
     case 'REMOVE-TODOLIST': {
-      const copyState = {...state};
-      delete copyState[action.id]
-      return copyState
+      const copyState = { ...state };
+      delete copyState[action.id];
+      return copyState;
     }
-      
 
     default:
       return state;

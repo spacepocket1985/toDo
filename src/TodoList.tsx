@@ -74,33 +74,35 @@ export function TodoList(props: PropsType) {
       </h3>
       <AddItemForm addItem={addNewTask} />
       <div>
-        {tasks.map((task) => {
-          const { id, title, isDone } = task;
-          return (
-            <div key={id} className={isDone ? 'is-done' : ''}>
-              <Checkbox
-                checked={isDone}
-                onChange={() => {
-                  onChangeHandler(id);
-                }}
-              />
-              <EditableSpan
-                title={title}
-                onChange={(newTitle) => {
-                  onChangeTitleHandler(newTitle, id);
-                }}
-              />
-              <IconButton
-                aria-label="delete"
-                onClick={() => {
-                  removeTask(id, idList);
-                }}
-              >
-                <Delete />
-              </IconButton>
-            </div>
-          );
-        })}
+        {tasks
+          ? tasks.map((task) => {
+              const { id, title, isDone } = task;
+              return (
+                <div key={id} className={isDone ? 'is-done' : ''}>
+                  <Checkbox
+                    checked={isDone}
+                    onChange={() => {
+                      onChangeHandler(id);
+                    }}
+                  />
+                  <EditableSpan
+                    title={title}
+                    onChange={(newTitle) => {
+                      onChangeTitleHandler(newTitle, id);
+                    }}
+                  />
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => {
+                      removeTask(id, idList);
+                    }}
+                  >
+                    <Delete />
+                  </IconButton>
+                </div>
+              );
+            })
+          : null}
       </div>
       <div>
         <Button
