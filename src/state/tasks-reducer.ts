@@ -12,7 +12,7 @@ export type ActionRemoveTaskType = {
 export type ActionAddTaskType = {
   type: 'ADD-TASK';
   listId: string;
-  taskTitle: string;
+  taskTitle: string; 
 };
 
 export type ActionChangeTaskStatusType = {
@@ -28,7 +28,7 @@ export type ActionChangeTaskTitleType = {
   listId: string;
 };
 
-export type ActionsType =
+export type ActionsType =   
   | ActionRemoveTaskType
   | ActionAddTaskType
   | ActionChangeTaskStatusType
