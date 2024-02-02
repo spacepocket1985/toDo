@@ -65,21 +65,8 @@ export const changeTaskTitleAC = (
   };
 };
 
-export const todoListId1 = v1();
-export const todoListId2 = v1();
 
-const initialState: TasksStateType = {
-  [todoListId1]: [
-    { id: v1(), title: 'CSS', isDone: true },
-    { id: v1(), title: 'JS', isDone: true },
-    { id: v1(), title: 'Rest API', isDone: false },
-    { id: v1(), title: 'GraphQL', isDone: false },
-  ],
-  [todoListId2]: [
-    { id: v1(), title: 'Book', isDone: true },
-    { id: v1(), title: 'Milk', isDone: false },
-  ],
-};
+const initialState: TasksStateType = {};
 
 export const tasksReducer = (
   state: TasksStateType = initialState,
@@ -118,7 +105,7 @@ export const tasksReducer = (
       const copyState = { ...state };
       delete copyState[action.id];
       return copyState;
-    }
+    } 
 
     default:
       return state;
