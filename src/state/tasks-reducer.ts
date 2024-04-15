@@ -65,7 +65,6 @@ export const changeTaskTitleAC = (
   };
 };
 
-
 const initialState: TasksStateType = {};
 
 export const tasksReducer = (
@@ -105,7 +104,7 @@ export const tasksReducer = (
       const copyState = { ...state };
       delete copyState[action.id];
       return copyState;
-    } 
+    }
 
     default:
       return state;

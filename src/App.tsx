@@ -133,7 +133,7 @@ function App() {
         </Toolbar>
       </AppBar>
       <Container fixed>
-        <Grid container style={{padding: "20px"}}>
+        <Grid container style={{ padding: '20px' }}>
           <AddItemForm addItem={addTodoList} />
         </Grid>
         <Grid container spacing={5}>

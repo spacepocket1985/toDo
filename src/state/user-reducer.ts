@@ -16,11 +16,9 @@ export const userReducer = (state: StateType, action: ActionType): StateType => 
     case 'INCREMENT-CHILDREN-COUNT':
       return { ...state, childrenCount: state.childrenCount + 1 };
     case 'CHANGE-NAME':
-      if (action.payload)
-      return { ...state, name: action.payload };
-      return state
+      if (action.payload) return { ...state, name: action.payload };
+      return state;
     default:
       throw new Error('I dont undertang action type');
   }
 };
- 

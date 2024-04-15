@@ -77,7 +77,6 @@ function AppWithReducers() {
   }
 
   function addTodoList(title: string) {
-
     dispatchToTasksReducer(addTodoListAC(title));
     dispatchToTodoListReducer(addTodoListAC(title));
   }

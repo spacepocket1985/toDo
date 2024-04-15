@@ -143,7 +143,6 @@ test('should correctly remove list', () => {
   const endState = tasksReducer(startState, action);
   const keys = Object.keys(endState);
 
- 
   expect(keys.length).toBe(1);
-  expect(endState['todoListId2']).toBeUndefined()
+  expect(endState['todoListId2']).toBeUndefined();
 });

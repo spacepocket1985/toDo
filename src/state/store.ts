@@ -8,4 +8,4 @@ const rootReducer = combineReducers({
   todoLists: todoListsReducer,
   tasks: tasksReducer,
 });
-export const store  = createStore(rootReducer);
+export const store = createStore(rootReducer);
